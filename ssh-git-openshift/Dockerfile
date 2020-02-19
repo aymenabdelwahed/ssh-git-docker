@@ -8,12 +8,12 @@ RUN sed -i "s/#PasswordAuthentication yes/PasswordAuthentication no/" /etc/ssh/s
 
 RUN sed -i 's/#Port.*$/Port 2022/' /etc/ssh/sshd_config && \
     chmod 775 /var/run && \
-    rm -f /var/run/nologin
 
 RUN adduser --system -s /bin/bash -u 1234321 -g 0 git  && \
     chmod 775 /etc/ssh /home && \
     chmod 660 /etc/ssh/sshd_config && \
-    chmod 664 /etc/passwd /etc/group
+    chmod 664 /etc/passwd /etc/group && \
+    echo "sftp:sftp" | chpasswd
 
 EXPOSE 2022
 LABEL Description="IceMobile Famous SFTP server" Vendor="IceMobile" Version="0.0.0"
